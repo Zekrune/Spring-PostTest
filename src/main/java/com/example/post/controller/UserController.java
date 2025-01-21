@@ -34,7 +34,7 @@ public class UserController {
     }
     
     // 회원가입 요청 처리
-    @PostMapping(path = "register_v3")
+    @PostMapping(path = "register")
     public String registerUser(
             @ModelAttribute User user) {
         
