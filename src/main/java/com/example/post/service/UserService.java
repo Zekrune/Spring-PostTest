@@ -8,7 +8,7 @@ import javax.management.RuntimeErrorException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.post.model.User;
+import com.example.post.model.users.User;
 import com.example.post.repository.*;
 
 @Service
@@ -18,6 +18,13 @@ public class UserService {
 	 * 1. 필드 주입
 	 * 2. 생성자 주입
 	 * 3. 세터 주입
+	 * 
+	 * Spring Data Jpa의 CRUD
+	 * Create : save(엔티티 객체)
+	 * Read : findById(엔티티 객체의 아이디), findAll()
+	 * Update : 없음(영속성 컨텍스트에서 변경 감지를 통해 업데이트)
+	 * Delete : delete(엔티티 객체)
+	 * 
 	 */
 //	@Autowired  // 필드 주입
 	private UserRepository userRepository;
@@ -53,4 +60,8 @@ public class UserService {
 		return userRepository.findAll(); // 모든 사용자 리스트 반환
 	}
 	
+	// username 으로 회원정보 조회
+	public User getUserbyUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 }
