@@ -13,8 +13,14 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Builder
+@AllArgsConstructor	// 모든 필드를 파라미터로 받는 생성자
+@NoArgsConstructor	// 기본 생성자
 @Entity
 @Data
 public class User {

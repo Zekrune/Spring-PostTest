@@ -63,11 +63,14 @@ public class UserController {
     	}
     	
         log.info("user: {}", userCreateDto);
-//        User registeredUser = userService.registerUser(user);
-//        log.info("registeredUser: {}", registeredUser);
         
-        return "redirect:/";
+        // userCreateDto -> user 타입으로 변환
+        User registeredUser = userService.registerUser(userCreateDto.toEntity()); // 서비스 레이어를 통해 사용자 등록
+        log.info("registeredUser: {}", registeredUser);
+
+       return "redirect:/"; // 회원가입 성공 페이지로 이동
     }
+
     
     // 로그인 페이지 이동
     @GetMapping("users/login")
@@ -81,7 +84,11 @@ public class UserController {
     public String login(
     		@Validated @ModelAttribute UserLoginDto userLoginDto,
     		BindingResult bindingResult,
-    		HttpServletRequest request) {
+    		HttpServletRequest request,
+    		@RequestParam(name = "redirectURL", defaultValue = "/") String redirectURL) {
+    	
+    	log.info("redirectURL: {}", redirectURL);
+    	
     	// 로그인 정보 검증에 실패하면 로그인 페이지로 돌아간다.
     	if (bindingResult.hasErrors()) {
     		return "users/login";
@@ -104,7 +111,7 @@ public class UserController {
     	//Session 에 로그인 정보를 저장한다.
     	session.setAttribute("loginUser", findUser);
     	
-        return "redirect:/";
+        return "redirect:" + redirectURL;
     }
     
     // 로그아웃
