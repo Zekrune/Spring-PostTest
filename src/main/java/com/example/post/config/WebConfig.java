@@ -50,10 +50,10 @@ public class WebConfig implements WebMvcConfigurer {
 //		// 인터셉터를 적용할 URL 패턴을 지정   필터는("/*") 이터셉터는 ("/**")  별 갯수 차이
 //		.addPathPatterns("/**");
 		
-		registry.addInterceptor(new LoginCheckInterceptor())
-		.order(2)
-		.addPathPatterns("/**")
-		//인터셉트에서 제외할 URL
-		.excludePathPatterns("/", "/users/register", "/users/login", "/users/logout");
+//		registry.addInterceptor(new LoginCheckInterceptor())
+//		.order(2)
+//		.addPathPatterns("/**")
+//		//인터셉트에서 제외할 URL
+//		.excludePathPatterns("/", "/users/register", "/users/login", "/users/logout");
 	}
 }

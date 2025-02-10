@@ -8,9 +8,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
-// 인터셉터는 HandlerInterceptor 인터페이스를 구현한다.
+// 인터셉터는 HandlerInteceptor 인터페이스를 구현한다.
 @Slf4j
-public class LogInterceptor implements HandlerInterceptor{
+public class LogInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -21,8 +21,8 @@ public class LogInterceptor implements HandlerInterceptor{
 		
 		if (handler instanceof HandlerMethod) {
 			// 호출할 컨트롤러의 메소드 정보를 담고 있다.
-			HandlerMethod handlerMethod = (HandlerMethod) handler;
-			log.info("handlerMethod: {}", handlerMethod);
+			 HandlerMethod handlerMethod = (HandlerMethod) handler;
+			 log.info("handlerMethod: {}", handlerMethod);
 		}
 		
 		log.info("requestURI: {}", requestURI);
@@ -36,7 +36,7 @@ public class LogInterceptor implements HandlerInterceptor{
 		// 컨트롤러의 핸들러 메소드가 정상적으로 실행된 후에 실행
 		// 예외가 발생하면 호출되지 않는다.
 		log.info("postHandle 실행");
-		log.info("ModelAndView: {}", modelAndView);
+		log.info("modelAndView: {}", modelAndView);
 	}
 	
 	@Override
@@ -46,7 +46,16 @@ public class LogInterceptor implements HandlerInterceptor{
 		log.info("afterCompletion 실행");
 		// 예외 발생과 관계없이 호출된다.
 		if (ex != null) {
-			log.info("afterCompletion 예외 발생!!");
+			log.error("afterCompletion 예외 발생!!");
 		}
 	}
 }
+
+
+
+
+
+
+
+
+

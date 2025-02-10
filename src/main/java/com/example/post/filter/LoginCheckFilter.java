@@ -22,8 +22,8 @@ public class LoginCheckFilter implements Filter {
 	private static final String[] whitelist = {
 			"/", 
 			"/users/register", 
-			"/users/login", 
-			"/users/logout"};
+			"/users/login",
+			"/users/logout"}; 
 	
 	// 화이트리스트의 경우에는 인증 체크를 하지 않는다.
 	public boolean isLoginCheckPath(String requestURI) {
@@ -33,7 +33,7 @@ public class LoginCheckFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		log.info("logincheck 필터 실행");
+		log.info("loginCheck 필터 실행");
 		
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		// 사용자가 요청한 URL 정보(로그인이 필요한 요청인지 확인)
@@ -46,7 +46,7 @@ public class LoginCheckFilter implements Filter {
 				// 세션에서 로그인 정보를 받아온다.
 				HttpSession session = httpRequest.getSession(false);
 				if (session == null || session.getAttribute("loginUser") == null) {
-					// 로그인 정보가 없으면
+					// 로그인 정보가 없으면 
 					log.info("인증되지 않은 사용자");
 					// 로그인 페이지로 리다이렉트 한다.
 					HttpServletResponse httpResponse = (HttpServletResponse) response;
@@ -54,20 +54,16 @@ public class LoginCheckFilter implements Filter {
 					httpResponse.sendRedirect("/users/login");
 					// 리턴을 하지 않으면 다음 필터로 계속 진행한다.
 					return;
-				}	
+				}
 			}
 			// 로그인 체크가 필요하지 않거나 로그인 정보가 있으면 다음 필터로 이동한다.
-			// 다음 필터로 실행 순서를 넘긴다.
 			chain.doFilter(request, response);
-		}catch (Exception e){
+		} catch (Exception e) {
 			throw e;
-		}finally {
+		} finally {
 			log.info("로그인 체크 필터 종료");
 		}
-		
-		
-		
-		
+				
 	}
 }
 

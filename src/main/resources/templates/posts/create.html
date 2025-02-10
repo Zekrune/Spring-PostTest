@@ -14,14 +14,22 @@
 <div class="container my-5">
     <h2>게시글 작성</h2>
     <!-- 게시글 작성 폼 -->
-    <form action="/posts" method="post">
+    <form action="/posts" method="post" enctype="multipart/form-data" th:object="${postCreateDto}">
         <div class="mb-3">
             <label for="title" class="form-label">제목</label>
-            <input type="text" class="form-control" id="title" name="title" required>
+            <input type="text" class="form-control" th:field="*{title}" required>
         </div>
+        <div class="alert alert-danger" th:errors="*{title}"></div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+            <textarea class="form-control" th:field="*{content}" rows="5" required></textarea>
+        </div>
+        <div class="alert alert-danger" th:errors="*{content}"></div>
+        
+        <!-- 파일 업로드 필드 -->
+        <div class="mb-3">
+        	<label for="file" class="form-label">파일 첨부</label>
+        	<input type="file" class="form-control" id="file" name="file">
         </div>
         
         <button type="submit" class="btn btn-primary">글쓰기</button>

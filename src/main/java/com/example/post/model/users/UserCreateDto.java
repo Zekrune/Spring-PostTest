@@ -11,7 +11,7 @@ import lombok.Data;
 
 
 @Data
-//회원 가입을 받기 위한 전용 클래스
+// 회원 가입을 받기 위한 전용 클래스
 public class UserCreateDto {
 	@NotBlank
 	@Size(min = 4, max = 20)

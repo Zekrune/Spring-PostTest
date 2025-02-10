@@ -2,8 +2,6 @@ package com.example.post.model.users;
 
 import java.time.LocalDate;
 
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -33,6 +31,7 @@ public class User {
 	
 	@Enumerated(EnumType.STRING)
 	private GenderType gender;
+	
 	private LocalDate birthDate;
 	private String email;
 }

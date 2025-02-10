@@ -16,10 +16,10 @@
 
     <!-- 로그인 폼 -->
     <form action="" method="post" th:object="${userLoginDto}">
-        <th:block th:if="${#fields.hasGlobalErrors()}">
-        <div class="alert alert-danger" th:each="err : ${#fields.globalErrors()}"
-        th:text="${err}"></div>
-        </th:block>
+    	<th:block th:if="${#fields.hasGlobalErrors()}">
+    		<div class="alert alert-danger" th:each="err : ${#fields.globalErrors()}"
+    		th:text="${err}"></div>
+    	</th:block>
         <div class="mb-3">
             <label for="username" class="form-label">사용자명</label>
             <input type="text" class="form-control" th:field="*{username}" required>

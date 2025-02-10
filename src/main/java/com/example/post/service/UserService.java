@@ -1,6 +1,7 @@
 package com.example.post.service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import javax.management.RuntimeErrorException;
@@ -26,10 +27,10 @@ public class UserService {
 	 * Delete : delete(엔티티 객체)
 	 * 
 	 */
-//	@Autowired  // 필드 주입
+//	@Autowired	// 필드 주입
 	private UserRepository userRepository;
 	
-//	@Autowired  // 생성자 주입
+//	@Autowired	// 생성자 주입
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
@@ -38,7 +39,6 @@ public class UserService {
 	public void setUserRepository(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
-	
 	
 	// 사용자 등록
 	public User registerUser(User user) {
@@ -49,19 +49,25 @@ public class UserService {
 	// ID로 사용자 조회
 	public User getUserById(Long id) {
 		Optional<User> result = userRepository.findById(id);
-		if (result.isPresent()) {
-			return result.get();
-		}
-		throw new RuntimeException("회원정보가 없습니다.");
+//		if (result.isPresent()) {
+//			return result.get();
+//		}
+//		throw new RuntimeException("회원정보가 없습니다.");
+		
+		return result.orElseThrow(() -> new RuntimeException("회원정보가 없습니다."));
 	}
 	
-	// 전체 회원정보 조회
+	// 전체 회원정보 조회	
 	public List<User> getAllUsers() {
 		return userRepository.findAll(); // 모든 사용자 리스트 반환
 	}
 	
 	// username 으로 회원정보 조회
-	public User getUserbyUsername(String username) {
-		return userRepository.findByUsername(username);
+		public User getUserbyUsername(String username) {
+			User user = userRepository.findByUsername(username);
+			if (user == null) {
+				throw new NoSuchElementException("사용자가 존재하지 않습니다.");
+			}
+			return user;
+		}
 	}
-}

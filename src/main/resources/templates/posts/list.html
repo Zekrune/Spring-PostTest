@@ -27,7 +27,7 @@
         </thead>
         <tbody>
         <!-- 서버에서 게시글 데이터를 동적으로 로드 -->
-        <tr th:each="post : ${posts}"> <!-- 여기서 posts는 모델에 보낸 값 -->
+        <tr th:each="post : ${posts}">
             <td th:text="${postStat.count}">1</td>
             <td><a th:href="@{/posts/{id}(id = ${post.id})}" th:text="${post.title}">제목</a></td>
             <td>[[${post.user.name}]]</td>
@@ -36,6 +36,32 @@
         </tr>
         </tbody>
     </table>
+    
+    <!-- 페이징 처리 -->
+    <nav>
+    	<ul class="pagination justify-content-center">
+    		<!-- 이전 그룹으로 -->
+    		<li class="page-item">
+    			<a class="page-link" th:href="@{/posts(page=${navi.currentPage - navi.pagePerGroup})}">이전 그룹</a>
+    		</li>
+    		<!-- 이전 페이지로 -->
+    		<li class="page-item">
+    			<a class="page-link" th:href="@{/posts(page=${navi.startPageGroup - 1})}">이전</a>
+    		</li>
+    		<li class="page-item" th:each="pageNum : ${#numbers.sequence(navi.startPageGroup, navi.endPageGroup)}">
+    			<a class="page-link" th:href="@{/posts(page=${pageNum})}" th:text="${pageNum + 1}"></a>
+    		</li>
+    		<!-- 다음 페이지로 -->
+    		<li class="page-item">
+    			<a class="page-link" th:href="@{/posts(page=${navi.startPageGroup - 1})}">다음</a>
+    		</li>
+    		<!-- 다음 그룹으로 -->
+    		<li class="page-item">
+    			<a class="page-link" th:href="@{/posts(page=${navi.currentPage + navi.pagePerGroup})}">다음 그룹</a>
+    		</li>
+    	</ul>
+    </nav>
+    <!-- 페이징 처리 -->
 </div>
 
 <!-- Bootstrap JS 및 의존성 스크립트 추가 -->
